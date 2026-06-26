@@ -295,7 +295,7 @@ DB_PORT=
 # 📂 Arquitectura del Proyecto
 
 ```bash
-MicroGateway/
+ArquitecturaMicroservicios/
 
 │
 
