@@ -515,7 +515,7 @@ Este proyecto fue desarrollado para practicar:
 
 ---
 
-# 👨‍💻 Fundador
+# 👨‍💻 Desarrollador
 
 <div align="center">
 
