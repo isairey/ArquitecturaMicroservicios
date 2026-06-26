@@ -549,6 +549,6 @@ Proyecto desarrollado con fines educativos y de investigación sobre arquitectur
 
 <div align="center">
 
-### 🌐 MicroGateway — Arquitecturas modernas para aplicaciones escalables.
+### 🌐 ArquitecturaMicroservicios — Arquitecturas modernas para aplicaciones escalables.
 
 </div>
