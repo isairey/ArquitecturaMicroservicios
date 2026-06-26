@@ -1,270 +1,554 @@
-# Arquitetura de Microsserviços com API Gateway (Node.js + Express)
+<div align="center">
 
-Este projeto demonstra uma arquitetura de microsserviços utilizando:
+<img width="220" src="https://cdn-icons-png.flaticon.com/512/4248/4248443.png" />
 
-- API Gateway (Express + express-http-proxy)
+# 🌐 MicroGateway
 
-- API de Autenticação (api-auth)
+### Arquitectura de Microservicios con API Gateway desarrollada en Node.js, Express y PostgreSQL 🚀
 
-- API de Relatos (api-relatos)
+<p align="center">
+  <b>MicroGateway</b> es una arquitectura basada en microservicios que implementa un API Gateway como punto central de acceso, ofreciendo autenticación mediante JWT, comunicación REST, cache inteligente, rate limiting y separación completa entre servicios para lograr una solución escalable y mantenible.
+</p>
 
-- Tokens JWT
+<p align="center">
+  <img src="https://img.shields.io/badge/Node.js-Microservices-339933?style=for-the-badge&logo=node.js&logoColor=white">
+  <img src="https://img.shields.io/badge/Express-API%20Gateway-000000?style=for-the-badge&logo=express">
+  <img src="https://img.shields.io/badge/PostgreSQL-Database-336791?style=for-the-badge&logo=postgresql&logoColor=white">
+  <img src="https://img.shields.io/badge/JWT-Security-orange?style=for-the-badge">
+</p>
 
-- Banco PostgreSQL
+<p align="center">
+  <a href="#-acerca-de-microgateway">Acerca de</a> •
+  <a href="#-arquitectura">Arquitectura</a> •
+  <a href="#-características">Características</a> •
+  <a href="#-tecnologías-utilizadas">Tecnologías</a> •
+  <a href="#-instalación">Instalación</a>
+</p>
 
-- Comunicação via REST/HTTP
+</div>
 
-- Isolamento entre serviços
+---
 
-- Cache e Rate Limiting (pontos extras do trabalho)
+# 🌐 Acerca de MicroGateway
 
-- Cada serviço rodando em sua própria porta
+**MicroGateway** es un proyecto académico y profesional diseñado para demostrar cómo implementar una arquitectura moderna basada en **Microservicios** utilizando **Node.js**.
 
-# Arquitetura Geral
+La solución divide el sistema en múltiples servicios independientes que se comunican mediante HTTP REST y son administrados por un **API Gateway**, encargado de centralizar la autenticación, el enrutamiento, la seguridad y la optimización de las peticiones.
 
-Diagrama completo no Excalidraw:
+La arquitectura implementa:
 
-[Diagrama](https://excalidraw.com/#json=umbor9S0JeIjT-2CAPSMa,lZ0i7iot6lzYM82XPPWJIw)
+- 🔐 Autenticación JWT
+- 🌐 API Gateway
+- ⚡ Cache Inteligente
+- 🚦 Rate Limiting
+- 🔄 Comunicación REST
+- 📦 Microservicios Independientes
+- 🗄️ PostgreSQL
+- 🔒 Seguridad Centralizada
 
-# Portas utilizadas
-| Serviço | Porta | 
-|---------------|-------| 
-| Gateway | 3001 | 
-| API Auth | 3002 | 
-| API Relatos | 3003 |
+---
 
-# Como rodar cada serviço
-## 1 - Gateway
-`cd gateway`
+# 🏗 Arquitectura
 
-`npm install`
+La solución está compuesta por tres servicios principales.
 
-`npm start`
+## 🌐 API Gateway
 
-## 2 - API Auth
-`cd api-auth`
+Es el único punto de entrada del sistema.
 
-`npm install`
+Se encarga de:
 
-`npm start`
+- Redireccionar peticiones
+- Validar tokens JWT
+- Aplicar Rate Limiting
+- Gestionar Cache
+- Centralizar la seguridad
+- Ocultar la infraestructura interna
 
-## 3 - API Relatos
-`cd api-relatos`
+---
 
-`npm install`
+## 🔐 API Auth
 
-`npm start`
+Microservicio dedicado exclusivamente a la autenticación.
 
-# Variáveis de ambiente (.env)
-## Gateway (.env)
+Permite:
+
+- Registro de usuarios
+- Inicio de sesión
+- Refresh Token
+- Logout
+- Gestión de JWT
+- Blacklist de Tokens
+
+---
+
+## 📝 API Relatos
+
+Servicio independiente encargado de la administración de reportes o relatos.
+
+Incluye:
+
+- CRUD completo
+- Protección mediante JWT
+- Persistencia en PostgreSQL
+- Comunicación mediante REST
+
+---
+
+# 📸 Arquitectura General
+
+```
+                 Cliente
+
+                    │
+                    ▼
+
+             API Gateway
+          (Puerto 3001)
+
+         ┌────────┴─────────┐
+         ▼                  ▼
+
+   API Auth            API Relatos
+   Puerto 3002          Puerto 3003
+
+         │                  │
+         └────────┬─────────┘
+                  ▼
+
+             PostgreSQL
+```
+
+---
+
+# 🚀 Características
+
+## 🔐 Seguridad
+
+- JWT Access Token
+- Refresh Token
+- Blacklist de Tokens
+- Protección de rutas
+- Middleware de autenticación
+
+---
+
+## 🌐 API Gateway
+
+- Proxy HTTP
+- Balance lógico
+- Enrutamiento
+- Seguridad centralizada
+- Comunicación transparente
+
+---
+
+## ⚡ Optimización
+
+- Cache con NodeCache
+- Respuestas rápidas
+- Reducción de carga
+- Rate Limiting
+- Protección contra abuso
+
+---
+
+## 📦 Arquitectura Modular
+
+Cada microservicio posee:
+
+- Código independiente
+- Base lógica separada
+- Escalabilidad individual
+- Despliegue independiente
+
+---
+
+# 🗄 Base de Datos
+
+El sistema utiliza **PostgreSQL**.
+
+Tablas principales:
+
+- Usuarios
+- Relatos
+- Blacklist de Tokens
+
+---
+
+## Usuarios
+
+Almacena:
+
+- Nombre
+- Email
+- Contraseña cifrada
+
+---
+
+## Relatos
+
+Cada registro contiene:
+
+- Fecha
+- Descripción
+- Latitud
+- Longitud
+- Tipo
+- Usuario
+
+---
+
+## Blacklist
+
+Permite invalidar tokens JWT al cerrar sesión.
+
+---
+
+# 🌐 Endpoints
+
+## Auth
+
+```
+POST /auth/register
+POST /auth/login
+POST /auth/refresh
+POST /auth/logout
+```
+
+---
+
+## Relatos
+
+```
+GET /relatos
+
+GET /relatos/:id
+
+POST /relatos
+
+PUT /relatos/:id
+
+DELETE /relatos/:id
+```
+
+Todas las rutas requieren un **Bearer Token** válido.
+
+---
+
+# ⚙ Variables de Entorno
+
+## Gateway
+
+```env
 PORT_GATEWAY=3001
 
 API_AUTH_URL=http://localhost:3002
 
 API_RELATOS_URL=http://localhost:3003
+```
 
-# API Auth (.env)
+---
+
+## API Auth
+
+```env
 PORT=3002
 
-JWT_SECRET_ACCESS=chave_acesso
+JWT_SECRET_ACCESS=
 
-JWT_SECRET_REFRESH=chave_refresh
+JWT_SECRET_REFRESH=
 
-DB_USER=seu_user
+DB_USER=
 
-DB_PASSWORD=sua_senha
+DB_PASSWORD=
 
-DB_HOST=localhost
+DB_HOST=
 
-DB_NAME=rotasegura
+DB_NAME=
 
-DB_PORT=5432
+DB_PORT=
+```
 
-# API Relatos (.env)
+---
+
+## API Relatos
+
+```env
 PORT=3003
 
-JWT_SECRET_ACCESS=chave_acesso
+JWT_SECRET_ACCESS=
 
-DB_USER=seu_user
+DB_USER=
 
-DB_PASSWORD=sua_senha
+DB_PASSWORD=
 
-DB_HOST=localhost
+DB_HOST=
 
-DB_NAME=rotasegura
+DB_NAME=
 
-DB_PORT=5432
+DB_PORT=
+```
 
-# Banco de Dados Local (PostgreSQL)
+---
 
-Crie o banco:
+# 📂 Arquitectura del Proyecto
 
-`CREATE DATABASE rotasegura;`
+```bash
+MicroGateway/
 
+│
 
-Crie as tabelas:
+├── gateway/
+│   ├── middleware/
+│   ├── cache/
+│   ├── routes/
+│   └── index.js
+│
+├── api-auth/
+│   ├── controllers/
+│   ├── services/
+│   ├── middleware/
+│   ├── routes/
+│   └── database/
+│
+├── api-relatos/
+│   ├── controllers/
+│   ├── routes/
+│   ├── middleware/
+│   └── database/
+│
+├── database/
+│
+└── README.md
+```
 
-`CREATE TABLE usuarios (
-    id SERIAL PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL,
-    senha VARCHAR(200) NOT NULL
-);`
+---
 
-`CREATE TABLE token_blacklist (
-    id SERIAL PRIMARY KEY,
-    token TEXT NOT NULL,
-    expira_em TIMESTAMP NOT NULL
-);`
+# 🛠 Tecnologías Utilizadas
 
-`CREATE TABLE relatos (
-    id SERIAL PRIMARY KEY,                                                                               
-    datahora TIMESTAMP NOT NULL,
-    descricao TEXT,
-    latitude NUMERIC(10,6),
-    longitude NUMERIC(10,6),
-    origem VARCHAR(50),
-    tipo VARCHAR(50),
-    usuarioemail VARCHAR(100)
-);`
+## Backend
 
-# Rotas expostas pelo Gateway
-## /auth/*
-POST /auth/registrar
+<p>
+<img src="https://skillicons.dev/icons?i=nodejs,express" />
+</p>
 
-POST /auth/login
-
-POST /auth/refresh
-
-POST /auth/logout
-
-## /relatos/*
-GET    /relatos
-
-GET    /relatos/:id
-
-POST   /relatos
-
-PUT    /relatos/:id
-
-DELETE /relatos/:id
-
-*Todas as rotas de /relatos exigem Bearer Token válido.*
-
-# Testes via CURL
-## Registrar usuário
-curl -X POST http://localhost:3001/auth/registrar \
-
-  -H "Content-Type: application/json" \
-  
-  -d '{"nome":"User","email":"user@gmail.com","senha":"12345678"}'
-  
-## Login
-curl -X POST http://localhost:3001/auth/login \
-
-  -H "Content-Type: application/json" \
-  
-  -d '{"email":"teste1@gmail.com","senha":"12345678"}'
-
-## Refresh token
-curl -X POST http://localhost:3001/auth/refresh \
-
-  -H "Content-Type: application/json" \
-  
-  -d '{"refreshToken":"SEU_REFRESH_TOKEN"}'
-  
-## Listar relatos
-curl http://localhost:3001/relatos \
-
-  -H "Authorization: Bearer SEU_ACCESS"
-
-## Buscar relato por ID
-curl http://localhost:3001/relatos/1 \
-
-  -H "Authorization: Bearer SEU_ACCESS"
-
-## Criar relato
-curl -X POST http://localhost:3001/relatos \
-
-  -H "Authorization: Bearer SEU_TOKEN" \
-  
-  -H "Content-Type: application/json" \
-  
-  -d '{"dataHora":"2025-11-12 10:00:00","descricao":"Teste","latitude":1,"longitude":1,"origem":"app","tipo":"roubo","usuarioEmail":"teste@gmail.com"}'
-
-## Atualizar relato
-curl -X PUT http://localhost:3001/relatos/ID_DO_RELATO \
-
-  -H "Authorization: Bearer SEU_ACCESS" \
-  
-  -H "Content-Type: application/json" \
-  
-  -d '{"id": ID_DO_RELATO, "descricao":"Novo texto", "tipo":"furto"}'
-
-## Remover relato
-curl -X DELETE http://localhost:3001/relatos/ID_DO_RELATO \
-
-  -H "Authorization: Bearer SEU_ACCESS"
-
-## Logout
-curl -X POST http://localhost:3001/auth/logout \
-
-  -H "Authorization: Bearer SEU_ACCESS" \
-  
-  -H "Content-Type: application/json" \
-  
-  -d '{"accessToken":"SEU_ACCESS","refreshToken":"SEU_REFRESH"}'
-
-# Testes de Cache
-1 - Primeira requisição
-
-`curl http://localhost:3001/relatos -H "Authorization: Bearer SEU_TOKEN"`
-
-2 - Segunda requisição
-
-`curl http://localhost:3001/relatos -H "Authorization: Bearer SEU_TOKEN"`
-
-Log esperado no terminal em que está rodando a API do Gateway:
-[CACHE] /relatos
-
-# Teste de Rate-Limit
-for i in {1..200}; do curl -s http://localhost:3001/relatos; echo; done
-
-Resposta esperada:
-
-{"error":"Muitas requisições. Tente novamente mais tarde."}
-
-# Justificativa da Arquitetura
-Cada microserviço é isolado e pode escalar independentemente.
-
-O Gateway abstrai as URLs internas e centraliza preocupações transversais:
-- autenticação
-- segurança
-- cache
-- rate limiting
-- roteamento
-
-api-auth lida exclusivamente com autenticação e tokens JWT.
-
-api-relatos lida apenas com CRUD dos relatos.
-
-Facilita deploy independente, manutenção e escalabilidade.
-
-# Sobre o Cache no Gateway
-
-O cache foi implementado utilizando NodeCache e o recurso oficial userResDecorator do express-http-proxy.
-Esse método é necessário porque o proxy não usa res.json() e a resposta não passa pelos middlewares tradicionais do Express.
-
-Por isso, userResDecorator é o único ponto onde é possível capturar a resposta do microserviço, salvar no cache e retornar ao cliente.
-
-Cache é aplicado apenas em GET, garantindo consistência.
-
-# Tecnologias utilizadas
 - Node.js
 - Express
+- REST API
 - express-http-proxy
+
+---
+
+## Base de Datos
+
+<p>
+<img src="https://skillicons.dev/icons?i=postgresql" />
+</p>
+
 - PostgreSQL
-- JWT
+
+---
+
+## Seguridad
+
+<p>
+<img src="https://skillicons.dev/icons?i=jwt" />
+</p>
+
+- JSON Web Token
+- Refresh Token
+- Blacklist
+
+---
+
+## Herramientas
+
+<p>
+<img src="https://skillicons.dev/icons?i=git,github,postman" />
+</p>
+
+- Git
+- GitHub
+- Postman
 - dotenv
 - NodeCache
 - express-rate-limit
+
+---
+
+# ⚡ Instalación
+
+## 1️⃣ Clonar repositorio
+
+```bash
+git clone https://github.com/isairey/MicroGateway
+```
+
+---
+
+## 2️⃣ Instalar dependencias
+
+En cada servicio:
+
+```bash
+npm install
+```
+
+---
+
+## 3️⃣ Crear Base de Datos
+
+```sql
+CREATE DATABASE rotasegura;
+```
+
+---
+
+## 4️⃣ Configurar variables
+
+Crear los archivos:
+
+```
+.env
+```
+
+en cada servicio.
+
+---
+
+## 5️⃣ Ejecutar servicios
+
+### Gateway
+
+```bash
+cd gateway
+
+npm start
+```
+
+---
+
+### API Auth
+
+```bash
+cd api-auth
+
+npm start
+```
+
+---
+
+### API Relatos
+
+```bash
+cd api-relatos
+
+npm start
+```
+
+---
+
+# 🧪 Pruebas
+
+El proyecto incluye pruebas mediante:
+
+- Registro de usuarios
+- Login
+- Refresh Token
+- CRUD completo
+- Cache
+- Rate Limiting
+
+Puede utilizarse:
+
+- Postman
+- CURL
+- Thunder Client
+
+---
+
+# 🔥 Funcionalidades Técnicas
+
+- API Gateway
+- Proxy HTTP
+- JWT Authentication
+- Cache Inteligente
+- Rate Limiting
+- REST APIs
+- Arquitectura Modular
+- Comunicación entre Servicios
+- Escalabilidad Horizontal
+- Separación de Responsabilidades
+
+---
+
+# 🎯 Objetivos del Proyecto
+
+Este proyecto fue desarrollado para practicar:
+
+- Arquitectura de Microservicios
+- API Gateway
+- Node.js
+- Express
+- PostgreSQL
+- JWT
+- Seguridad
+- Sistemas Distribuidos
+- Escalabilidad
+- Desarrollo Backend Profesional
+
+---
+
+# 🚀 Roadmap
+
+## Próximamente
+
+- 🐳 Docker Compose
+- ☸ Kubernetes
+- 📊 Prometheus
+- 📈 Grafana
+- 🔍 Service Discovery
+- ⚡ Redis Cache
+- 📬 RabbitMQ
+- 🔥 CI/CD con GitHub Actions
+
+---
+
+# 👨‍💻 Fundador
+
+<div align="center">
+
+<img width="140" src="https://github.com/isairey.png" />
+
+## Isai Reyes — Backend & Full Stack Developer
+
+Especializado en arquitecturas distribuidas, microservicios, APIs REST, sistemas empresariales y desarrollo backend moderno.
+
+</div>
+
+---
+
+# 🌟 Apoya el Proyecto
+
+Si te gusta **MicroGateway**:
+
+⭐ Dale una estrella al repositorio
+
+🍴 Haz Fork del proyecto
+
+📢 Compártelo con otros desarrolladores
+
+---
+
+# 📜 Licencia
+
+Proyecto desarrollado con fines educativos y de investigación sobre arquitecturas de microservicios utilizando Node.js y Express.
+
+---
+
+<div align="center">
+
+### 🌐 MicroGateway — Arquitecturas modernas para aplicaciones escalables.
+
+</div>
