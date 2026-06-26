@@ -382,7 +382,7 @@ ArquitecturaMicroservicios/
 ## 1️⃣ Clonar repositorio
 
 ```bash
-git clone https://github.com/isairey/MicroGateway
+git clone https://github.com/isairey/ArquitecturaMicroservicios
 ```
 
 ---
